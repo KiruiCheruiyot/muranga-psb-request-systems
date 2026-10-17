@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,26 +11,50 @@
 <header class="topbar">
   <a class="brand" href="{{ url_for('index') }}">
     <span class="brand-mark">M</span>
-    <span><strong>Murang'a County PSB</strong><small>Public Service Request Portal</small></span>
+    <span>
+      <strong>Murang'a County PSB</strong>
+      <small>Public Service Request Portal</small>
+    </span>
   </a>
+
   <nav>
     <a href="{{ url_for('index') }}">Home</a>
+
     {% if session.get('user_id') %}
-      {% if session.get('role') == 'admin' %}<a href="{{ url_for('admin_dashboard') }}">Admin</a>{% else %}<a href="{{ url_for('dashboard') }}">My requests</a>{% endif %}
+      {% if session.get('role') == 'admin' %}
+        <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+      {% else %}
+        <a href="{{ url_for('dashboard') }}">My requests</a>
+      {% endif %}
+
       <a class="nav-button" href="{{ url_for('logout') }}">Sign out</a>
+
     {% else %}
-      <a href="{{ url_for('login') }}">Sign in</a><a class="nav-button" href="{{ url_for('register') }}">Create account</a>
+      <a href="{{ url_for('login') }}">Sign in</a>
+      <a href="{{ url_for('login') }}">Admin Sign In</a>
+      <a class="nav-button" href="{{ url_for('register') }}">Create account</a>
     {% endif %}
   </nav>
 </header>
+
 <main class="container">
   {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}{% for category, message in messages %}
-      <div class="alert {{ category }}">{{ message }}</div>
-    {% endfor %}{% endif %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
   {% endwith %}
+
   {% block content %}{% endblock %}
 </main>
-<footer><div><strong>Murang'a County Public Service Board</strong><p>Kirui's Demonstration project for public service request submission and tracking.</p></div><span>Prototype · Not an official county government service</span></footer>
+
+<footer>
+  <div>
+    <strong>Murang'a County Public Service Board</strong>
+    <p>Kirui's Demonstration project for public service request submission and tracking.</p>
+  </div>
+  <span>Prototype · Not an official county government service</span>
+</footer>
 </body>
 </html>
