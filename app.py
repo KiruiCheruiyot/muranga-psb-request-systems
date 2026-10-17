@@ -76,15 +76,37 @@ def init_db():
             db.execute("ALTER TABLE service_requests ADD COLUMN location TEXT NOT NULL DEFAULT 'Not provided'")
         if "image_filename" not in columns:
             db.execute("ALTER TABLE service_requests ADD COLUMN image_filename TEXT DEFAULT ''")
-        # Optional first administrator. Set ADMIN_EMAIL and ADMIN_PASSWORD in deployment settings.
+      
+        # Configure the administrator using deployment environment variables.
         admin_email = os.environ.get("ADMIN_EMAIL", "").strip().lower()
         admin_password = os.environ.get("ADMIN_PASSWORD", "")
+
         if admin_email and admin_password:
-            existing = db.execute("SELECT id FROM users WHERE email = ?", (admin_email,)).fetchone()
-            if not existing:
+            existing = db.execute(
+                "SELECT id FROM users WHERE LOWER(email) = ?",
+                (admin_email,)
+            ).fetchone()
+
+            if existing:
+                # Promote the configured account to administrator.
                 db.execute(
-                    "INSERT INTO users (full_name, email, password_hash, role, created_at) VALUES (?, ?, ?, 'admin', ?)",
-                    ("PSB Administrator", admin_email, generate_password_hash(admin_password), datetime.utcnow().isoformat(timespec="seconds"))
+                    "UPDATE users SET role = 'admin' WHERE id = ?",
+                    (existing["id"],)
+                )
+            else:
+                # Create the administrator if the account does not exist.
+                db.execute(
+                    """
+                    INSERT INTO users
+                    (full_name, email, password_hash, role, created_at)
+                    VALUES (?, ?, ?, 'admin', ?)
+                    """,
+                    (
+                        "PSB Administrator",
+                        admin_email,
+                        generate_password_hash(admin_password),
+                        datetime.utcnow().isoformat(timespec="seconds")
+                    )
                 )
 
 
