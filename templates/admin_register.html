@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+{% block title %}Admin Registration | Murang'a PSB{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+  <div>
+    <span class="eyebrow">STAFF ACCESS</span>
+    <h1>Create Administrator Account</h1>
+    <p>Register an authorized administrator for the request management system.</p>
+  </div>
+</div>
+
+<div class="panel">
+  <form method="POST" action="{{ url_for('admin_register') }}">
+    <label for="full_name">Full name</label>
+    <input
+      type="text"
+      id="full_name"
+      name="full_name"
+      required
+      autocomplete="name"
+    >
+
+    <label for="email">Official email address</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      autocomplete="email"
+    >
+
+    <label for="password">Create password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      minlength="12"
+      required
+      autocomplete="new-password"
+    >
+
+    <label for="confirm_password">Confirm password</label>
+    <input
+      type="password"
+      id="confirm_password"
+      name="confirm_password"
+      minlength="12"
+      required
+      autocomplete="new-password"
+    >
+
+    <label for="invite_code">Administrator invitation code</label>
+    <input
+      type="password"
+      id="invite_code"
+      name="invite_code"
+      required
+      autocomplete="off"
+    >
+
+    <button type="submit">Create Admin Account</button>
+  </form>
+
+  <p>Already registered? <a href="{{ url_for('login') }}">Sign in</a></p>
+</div>
+{% endblock %}
