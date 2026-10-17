@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Create account | Murang'a PSB{% endblock %}
+{% block content %}
+<section class="form-wrap"><div class="form-intro"><span class="eyebrow">GET STARTED</span><h1>Create your account</h1><p>Register to submit and track your public service requests.</p></div>
+<form method="post" class="panel">
+<label>Full name<input name="full_name" autocomplete="name" required maxlength="120" placeholder="Enter your full name"></label>
+<label>Email address<input type="email" name="email" autocomplete="email" required maxlength="160" placeholder="you@example.com"></label>
+<label>Password <small>(at least 8 characters)</small><input type="password" name="password" autocomplete="new-password" required minlength="8"></label>
+<button class="button primary full" type="submit">Create account</button><p class="form-foot">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p>
+</form></section>
+{% endblock %}

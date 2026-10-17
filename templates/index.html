@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">PUBLIC SERVICE REQUEST PORTAL</span>
+    <h1>How can we help you today?</h1>
+    <p>Submit an enquiry, follow up on a service request, and keep track of updates from one simple portal.</p>
+    <div class="actions"><a class="button primary" href="{{ url_for('new_request') if session.get('user_id') else url_for('register') }}">Submit a request <span>→</span></a><a class="button secondary" href="{{ url_for('dashboard') if session.get('user_id') else url_for('login') }}">Track my requests</a></div>
+  </div>
+  <div class="hero-art"><div class="art-circle">✓</div><div class="art-card"><span class="dot green"></span><div><strong>Request tracking</strong><small>Updates in one place</small></div></div><div class="art-card second"><span class="mini-icon">▤</span><div><strong>Service enquiries</strong><small>Clear reference numbers</small></div></div></div>
+</section>
+<section class="section">
+  <div class="section-heading"><span class="eyebrow">HOW IT WORKS</span><h2>Public services, made simpler</h2><p>Three simple steps to make and follow up on a request.</p></div>
+  <div class="feature-grid">
+    <article class="feature"><div class="feature-icon">01</div><h3>Create an account</h3><p>Register with your name and email to access your requests securely.</p></article>
+    <article class="feature"><div class="feature-icon">02</div><h3>Submit your request</h3><p>Choose a category, explain what you need, and receive a reference number.</p></article>
+    <article class="feature"><div class="feature-icon">03</div><h3>Follow progress</h3><p>Sign in any time to view the current status and administrator feedback.</p></article>
+  </div>
+</section>
+<div class="notice"><strong>Project prototype:</strong> This is an educational demonstration and is not affiliated with or endorsed by Murang'a County Government. Do not submit real personal or sensitive information.</div>
+{% endblock %}

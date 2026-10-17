@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Submit a request | Murang'a PSB{% endblock %}
+{% block content %}
+<div class="form-wrap wide"><div class="form-intro"><span class="eyebrow">PUBLIC SERVICE REQUEST</span><h1>How can we help?</h1><p>Report a local issue so the relevant team can review it. Fields marked * are required.</p></div>
+<form method="post" class="panel" enctype="multipart/form-data">
+<label>Request category *<select name="category" required><option value="">Choose a category</option>{% for c in categories %}<option value="{{ c }}">{{ c }}</option>{% endfor %}</select></label>
+<label>Location *<input name="location" required maxlength="240" placeholder="e.g. street, estate, village or nearby landmark"></label>
+<label>Short title *<input name="subject" required maxlength="160" placeholder="e.g. Streetlight not working near the market"></label>
+<label>Description *<textarea name="description" rows="6" required maxlength="5000" placeholder="Describe the issue and any helpful details..."></textarea></label>
+<label>Attach an image (optional)<input type="file" name="image" accept="image/png,image/jpeg,image/gif,image/webp"><span class="helper">PNG, JPG, JPEG, GIF or WEBP. Maximum file size: 5 MB.</span></label>
+<div class="form-actions"><a class="button secondary" href="{{ url_for('dashboard') }}">Cancel</a><button class="button primary" type="submit">Submit request</button></div>
+<p class="helper">Do not upload images containing sensitive personal information.</p>
+</form></div>
+{% endblock %}

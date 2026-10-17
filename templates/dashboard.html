@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}My requests | Murang'a PSB{% endblock %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">CITIZEN DASHBOARD</span><h1>Hello, {{ session.get('name', 'there') }}</h1><p>View your requests or submit a new enquiry.</p></div><a class="button primary" href="{{ url_for('new_request') }}">+ New request</a></div>
+{% if requests %}
+<div class="table-wrap"><table><thead><tr><th>Reference</th><th>Request</th><th>Submitted</th><th>Status</th><th></th></tr></thead><tbody>
+{% for r in requests %}<tr><td><strong>{{ r.reference }}</strong></td><td><span class="table-title">{{ r.subject }}</span><small>{{ r.category }}</small></td><td>{{ r.created_at[:10] }}</td><td><span class="status {{ r.status|lower|replace(' ', '-') }}">{{ r.status }}</span></td><td><a class="text-link" href="{{ url_for('request_detail', request_id=r.id) }}">View →</a></td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}<div class="empty panel"><div class="empty-icon">▤</div><h2>No requests yet</h2><p>When you submit a request, its reference number and status will appear here.</p><a class="button primary" href="{{ url_for('new_request') }}">Submit your first request</a></div>{% endif %}
+{% endblock %}
